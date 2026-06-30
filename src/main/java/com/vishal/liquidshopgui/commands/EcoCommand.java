@@ -23,14 +23,55 @@ public class EcoCommand implements CommandExecutor {
             return true;
         }
 
-        if (args.length < 3) {
-            sender.sendMessage(Component.text("Usage: /eco <give|take|set> <player> <amount>", NamedTextColor.RED));
+        if (args.length == 0) {
+            sender.sendMessage(
+                Component.text("Usage: /eco <give|take|set|reset|reload> [player] [amount]", NamedTextColor.RED)
+            );
             return true;
         }
 
         String action = args[0].toLowerCase();
-        Player target = plugin.getServer().getPlayerExact(args[1]);
+        var economy = plugin.economyManager();
+        String symbol = plugin.getConfig().getString("currency-symbol", "$");
 
+        if (action.equals("reload")) {
+            plugin.reloadConfig();
+            sender.sendMessage(Component.text("Configuration reloaded.", NamedTextColor.GREEN));
+            return true;
+        }
+
+        if (action.equals("reset")) {
+            if (args.length < 2) {
+                sender.sendMessage(Component.text("Usage: /eco reset <player>", NamedTextColor.RED));
+                return true;
+            }
+            Player target = plugin.getServer().getPlayerExact(args[1]);
+            if (target == null) {
+                sender.sendMessage(
+                    Component.text("Player ", NamedTextColor.RED)
+                        .append(Component.text(args[1], NamedTextColor.AQUA))
+                        .append(Component.text(" is not online.", NamedTextColor.RED))
+                );
+                return true;
+            }
+            economy.set(target.getUniqueId(), 0);
+            sender.sendMessage(
+                Component.text("Reset ", NamedTextColor.GREEN)
+                    .append(Component.text(target.getName(), NamedTextColor.AQUA))
+                    .append(Component.text("'s balance to zero.", NamedTextColor.GREEN))
+            );
+            target.sendMessage(Component.text("Your balance has been reset to zero.", NamedTextColor.RED));
+            return true;
+        }
+
+        if (args.length < 3) {
+            sender.sendMessage(
+                Component.text("Usage: /eco <give|take|set> <player> <amount>", NamedTextColor.RED)
+            );
+            return true;
+        }
+
+        Player target = plugin.getServer().getPlayerExact(args[1]);
         if (target == null) {
             sender.sendMessage(
                 Component.text("Player ", NamedTextColor.RED)
@@ -52,9 +93,6 @@ public class EcoCommand implements CommandExecutor {
             sender.sendMessage(Component.text("Amount cannot be negative.", NamedTextColor.RED));
             return true;
         }
-
-        var economy = plugin.economyManager();
-        String symbol = plugin.getConfig().getString("currency-symbol", "$");
 
         switch (action) {
             case "give" -> {
@@ -111,7 +149,7 @@ public class EcoCommand implements CommandExecutor {
             }
             default -> {
                 sender.sendMessage(
-                    Component.text("Unknown action. Use: give, take, or set.", NamedTextColor.RED)
+                    Component.text("Unknown action. Use: give, take, set, reset, or reload.", NamedTextColor.RED)
                 );
             }
         }

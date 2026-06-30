@@ -1,8 +1,10 @@
 package com.vishal.liquidshopgui.economy;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class EconomyManager {
 
@@ -45,5 +47,22 @@ public class EconomyManager {
     public double setStartingBalance(UUID playerId, double amount) {
         balances.put(playerId, amount);
         return amount;
+    }
+
+    public Map<UUID, Double> getAllBalances() {
+        return new HashMap<>(balances);
+    }
+
+    public Map<UUID, Double> getTopBalances(int limit) {
+        return balances.entrySet()
+            .stream()
+            .sorted(Map.Entry.<UUID, Double>comparingByValue().reversed())
+            .limit(limit)
+            .collect(Collectors.toMap(
+                Map.Entry::getKey,
+                Map.Entry::getValue,
+                (a, b) -> a,
+                LinkedHashMap::new
+            ));
     }
 }

@@ -1,3 +1,13 @@
 currency-symbol: "$"
 starting-balance: 1000
 shop-title: "Liquid Shop"
+
+worth:
+  DIAMOND: 1000.0
+  IRON_INGOT: 50.0
+  GOLD_INGOT: 100.0
+  EMERALD: 200.0
+  NETHERITE_INGOT: 5000.0
+  OAK_LOG: 5.0
+  COBBLESTONE: 2.0
+  WHEAT: 3.0

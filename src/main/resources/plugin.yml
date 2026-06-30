@@ -16,6 +16,10 @@ commands:
     description: Check your balance
     usage: /balance
     aliases: [bal]
+  balancetop:
+    description: View the richest players
+    usage: /balancetop
+    aliases: [baltop]
   pay:
     description: Pay another player
     usage: /pay <player> <amount>
@@ -24,5 +28,15 @@ commands:
     usage: /shop
   eco:
     description: Admin economy management
-    usage: /eco <give|take|set> <player> <amount>
+    usage: /eco <give|take|set|reset|reload> [player] [amount]
+    permission: liquidshopgui.admin
+  worth:
+    description: Check the value of an item
+    usage: /worth [item]
+  sell:
+    description: Sell items for cash
+    usage: /sell [hand|all|blocks]
+  setworth:
+    description: Set the value of an item
+    usage: /setworth <item> <price>
     permission: liquidshopgui.admin

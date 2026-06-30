@@ -1,9 +1,13 @@
 package com.vishal.liquidshopgui;
 
 import com.vishal.liquidshopgui.commands.BalanceCommand;
+import com.vishal.liquidshopgui.commands.BalanceTopCommand;
 import com.vishal.liquidshopgui.commands.EcoCommand;
 import com.vishal.liquidshopgui.commands.PayCommand;
+import com.vishal.liquidshopgui.commands.SellCommand;
+import com.vishal.liquidshopgui.commands.SetWorthCommand;
 import com.vishal.liquidshopgui.commands.ShopCommand;
+import com.vishal.liquidshopgui.commands.WorthCommand;
 import com.vishal.liquidshopgui.economy.EconomyManager;
 import com.vishal.liquidshopgui.listeners.InventoryListener;
 import com.vishal.liquidshopgui.listeners.PlayerJoinListener;
@@ -39,9 +43,13 @@ public class LiquidShopGUI extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("balance").setExecutor(new BalanceCommand(this));
+        getCommand("balancetop").setExecutor(new BalanceTopCommand(this));
         getCommand("pay").setExecutor(new PayCommand(this));
         getCommand("shop").setExecutor(new ShopCommand());
         getCommand("eco").setExecutor(new EcoCommand(this));
+        getCommand("worth").setExecutor(new WorthCommand(this));
+        getCommand("sell").setExecutor(new SellCommand(this));
+        getCommand("setworth").setExecutor(new SetWorthCommand(this));
     }
 
     private void registerListeners() {
