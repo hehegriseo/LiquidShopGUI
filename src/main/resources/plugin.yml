@@ -1,0 +1,28 @@
+name: LiquidShopGUI
+version: 1.0.0
+main: com.vishal.liquidshopgui.LiquidShopGUI
+api-version: 1.21
+author: Vishal
+
+description: A modern GUI-based shop plugin for Paper 1.21+
+
+permissions:
+  liquidshopgui.admin:
+    description: Access to admin commands
+    default: op
+
+commands:
+  balance:
+    description: Check your balance
+    usage: /balance
+    aliases: [bal]
+  pay:
+    description: Pay another player
+    usage: /pay <player> <amount>
+  shop:
+    description: Open the shop GUI
+    usage: /shop
+  eco:
+    description: Admin economy management
+    usage: /eco <give|take|set> <player> <amount>
+    permission: liquidshopgui.admin
